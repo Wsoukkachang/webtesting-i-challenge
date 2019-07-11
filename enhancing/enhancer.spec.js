@@ -78,7 +78,8 @@ describe('the enhancer', () => {
         });
     });
 
-    describe("Fail function", () => {
+    describe('Fail function', () => {
+
         //Fail should decrease durability by 5 if enhancement is less than 15, and by 10 if greater than 15
         //Fail should decrease durability by 1 if enhancement is greater than 16
 
@@ -94,7 +95,7 @@ describe('the enhancer', () => {
             expect(testItem.durability).toBe(45);
         });
 
-        it('should decrease durability by 10 if enhancement is greater than 15 and less than 17', () => {
+        it('should decrease durability by 10 if enhancement is equal or greater than 15', () => {
             const testItem1 = enhancer.fail(items[4]);
             const testItem2 = enhancer.fail(items[5]);
 
@@ -117,6 +118,49 @@ describe('the enhancer', () => {
 
             expect(testItem2.name).toBe("Long Sword III");
             expect(testItem2.enhancement).toBe(0);
+        });
+    });
+
+    describe('Get function', () => {
+
+        //Get should not modify the name property if enhancement = 0
+        //Get should modify the name property to be " [+{enhancement value}] Name Of Item "
+
+        it('should accept an object and return a new object', () => {
+            const testItem = enhancer.fail(items[0]);
+
+            expect(testItem).not.toBe(items[0]);
+        });
+
+        it('should modify the name property if enhancement > 0', () => {
+            const testItem1 = enhancer.get(items[1]);
+            const testItem2 = enhancer.get(items[3]);
+            const testItem3 = enhancer.get(items[5]);
+
+            expect(testItem1.name).toBe("[+10] Long Sword II");
+            expect(testItem2.name).toBe("[+20] Long Sword IV");
+            expect(testItem3.name).toBe("[+16] Long Sword VI");
+        });
+
+        it('should not modify the name if enhancement = 0', () => {
+            const testItem = enhancer.get(items[0]);
+
+            expect(testItem.name).toBe("Long Sword I");
+        });
+
+        it('should not alter values other than name', () => {
+            const testItem1 = enhancer.get(items[1]);
+            const testItem2 = enhancer.get(items[2]);
+            const testItem3 = enhancer.get(items[3]);
+
+            expect(testItem1.enhancement).toBe(10);
+            expect(testItem1.durability).toBe(100);
+
+            expect(testItem2.enhancement).toBe(0);
+            expect(testItem2.durability).toBe(50);
+
+            expect(testItem3.enhancement).toBe(20);
+            expect(testItem3.durability).toBe(100);
         });
     });
 });
