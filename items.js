@@ -19,4 +19,14 @@ module.exports = [
         durability: 100,
         enhancement: 20
     },
+    {
+        name: "Long Sword V",
+        durability: 40,
+        enhancement: 16
+    },
+    {
+        name: "Long Sword VI",
+        durability: 60,
+        enhancement: 16
+    }
 ] 

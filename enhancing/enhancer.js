@@ -12,11 +12,17 @@ function succeed(item) {
 }
 
 function fail(item) {
-  return { ...item };
+  const result = { ...item }
+  if(result.enhancement < 15) {
+    result.durability = item.durability - 5
+  } else if(result.enhancement == 15 || result.enhancement > 15) {
+    result.durability = item.durability - 10;
+    result.enhancement = item.enhancement - 1;
+  }
+  return result;
 }
 
 function repair(item) {
-
   const result = { ...item }
   result.durability = 100;
   return result;
